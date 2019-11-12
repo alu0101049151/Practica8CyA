@@ -25,9 +25,22 @@
 
 class Grammar {
   public:
+    Grammar (std::string inputFile);
+    ~Grammar ();
+
+  private:
+   //============COMPROBAR SI REALMENTE HACEN FALTA!!!!======
+    Alphabet getTerminals() const;
+    std::set<char> getNoTerminals() const;
+    std::string getstartSymbol() const;
+    std::set<Production> getProductions() const;
+   //========================================================
+    
+    //TODO
+    Nfa convertToNFA();
   protected:
   private:
-    std::set<char>  terminals_;         //!< Represents the set of terminals of the grammar.
+    Alphabet        terminals_;         //!< Represents the set of terminals of the grammar.
     std::set<char> noTerminals_;        //!< Represents the set of non terminals of
                                         //!< the grammar.
     std::string    startSymbol_;        //!< Is the boot symbol.

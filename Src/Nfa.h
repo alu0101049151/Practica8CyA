@@ -20,16 +20,20 @@
 #ifndef PRACTICE8_NFA_H
 #define PRACTICE8_NFA_H
 
-#include <stack>
 #include <iostream>
+#include <vector>
+#include <set>
+#include <sstream>
 
 #include "Alphabet.h"
 #include "Transition.h"
 #include "State.h"
-#include "Dfa.h"
 
 
 const char EPSILON = '~';
+const char NEWLINE = '\n';
+const std::string COMMENT = "// ";
+const std::string ENDOFCOMMENTS = "///";
 const std::string UNCHECKED = "@";
 
 class Nfa {  
@@ -75,7 +79,13 @@ class Nfa {
     * @param it is the file where the definition of the resulting DFA will be
     * saved when applying the algorithm.
     */
-    void powersetConstruction(std::string& outputFile);
+   // void powersetConstruction(std::string& outputFile);
+
+  private:
+    /**
+    * @brief Prints the description of Nfa in the given output file. 
+    */
+    void printNfa(std::string& outputFile);
 
   protected:
     /**
@@ -88,7 +98,7 @@ class Nfa {
     * @brief Carries out the epsilon-closure of a set of states.
     * @param toAnalize is the state to which the algorithm will be applied.
     */
-    std::set<State> epsilonClosure(std::set<State> T);
+   // std::set<State> epsilonClosure(std::set<State> T);
 
   private:
     std::string startState_;             //!< Is the boot state.
