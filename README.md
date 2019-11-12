@@ -1,4 +1,4 @@
-# _Computability and algorithm, task 8: Regular Grammars and Finite Automatons.
+# Computability and algorithm, task 8: Regular Grammars and Finite Automatons.
 ### By Basilio Gómez Navarro. November, 2019.
 
 ## The program:
