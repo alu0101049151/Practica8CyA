@@ -7,7 +7,7 @@
  * Grade: 2nd
  * Practice 8 - Regular Grammars and Finite Automatons.
  * Email: alu0101049151@ull.edu.es
- * Alphabet.h file: Alphabet class. It represents the alphabet of the DFA
+ * Alphabet.h file: Alphabet class. It represents the alphabet of the NFA
  *                  This file contains the class definition.
  * References:
  *                Practice statement:

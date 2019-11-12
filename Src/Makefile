@@ -2,7 +2,7 @@
 CC=g++
 CXXFLAGS=-std=c++11 -g
 
-OBJS= Transition.o State.o Alphabet.o 
+OBJS= Transition.o State.o Alphabet.o Production.o  
 
 all: ${OBJS}
 	$(CC) $(CXXFLAGS) -o G2NFA ${OBJS}
