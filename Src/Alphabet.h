@@ -48,6 +48,8 @@ class Alphabet {
     */
     bool checkIfBelongs(char toCheck);
 
+    Alphabet& operator= (const Alphabet &alphabet);
+
 	private:
 		std::set<char> alphabet_; //!< Character set representing the DFA's alphabet
 };

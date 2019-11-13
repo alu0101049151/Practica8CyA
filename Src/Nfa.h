@@ -39,11 +39,16 @@ const std::string UNCHECKED = "@";
 class Nfa {  
   public:
     //Nfa(std::string& inputFile);
-    Nfa(std::string startSate, std::set<State> states, std::set<std::string>
+    Nfa(std::string startState, std::set<State> states, std::set<std::string>
     finalStates, Alphabet alphabet, std::set<Transition> transitions);
-    //Nfa(const Nfa& nfa);
+    Nfa(const Nfa& nfa);
     Nfa();
     ~Nfa();
+    
+    /**
+    * @brief Prints the description of Nfa in the given output file. 
+    */
+    void printNfa(std::string& outputFile);
 
   private:
     /**
@@ -77,10 +82,6 @@ class Nfa {
     */
     std::set<Transition> getTransitions() const;
 
-    /**
-    * @brief Prints the description of Nfa in the given output file. 
-    */
-    void printNfa(std::string& outputFile);
 
     /**
     * @brief Reads the input file and builds the Nfa.

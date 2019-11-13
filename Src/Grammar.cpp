@@ -85,7 +85,7 @@ void Grammar::readAndBuildGrammar(std::string& grammarDefinition) {
      for (int i = 0; i < temp; ++i) {
        std::getline(inputFile, read);
        auxChar = read[0];
-       nonTerminals_.insert(auxChar);
+       nonTerminals_.insertAlphabet(auxChar);
        read.clear();
      }
 
@@ -133,7 +133,7 @@ Nfa Grammar::convertToNFA() {
 
   // Generate the states set
   std::set<State> auxStates;
-  for (auto i: nonTerminals) {
+  for (auto i: nonTerminals_.getAlphabet()) {
     std::string auxStr(1, i);
     State auxState(auxStr);
     auxStates.insert(auxState);
@@ -142,22 +142,121 @@ Nfa Grammar::convertToNFA() {
   auxStates.insert(finalState);
 
   // Generate the final statets set only with de state 'f'.
-  std::set<std::string> auxfinalStates;
-  auxfinalStates.insert(FINAL);
+  std::set<std::string> auxFinalStates;
+  auxFinalStates.insert(FINAL);
 
   // Start State will have the same id as Start Symbol.
   // The alphabet will be the same as Terminals + the epsilon.
+  Alphabet auxAlphabet = terminals_;
+  auxAlphabet.insertAlphabet(EPSILON);
 
   // Generate the set of transitions of the NFA.
   std::set<Transition> auxTransitions;
 
-  char auxIput;
-  std::string auxCurrent;
+  char auxInput;
   std::string auxDestination;
-  
-  for (auto i: productions_) {
+  std::string auxProduction;
 
+  for (auto i: productions_) {
+   std::string auxCurrent(1, i.getLeftPart());
+    auxProduction = i.getRightPart();
+
+    switch (auxProduction.size()) {
+      case 1:   // If it only contains a grammatical symbol.
+      {
+        if (auxAlphabet.checkIfBelongs(auxProduction[0])) { // If the symbol is terminal
+          auxInput = auxProduction[0];
+          auxDestination = FINAL;
+          
+          // Generate the new transition:
+          Transition auxTransition(auxInput, auxCurrent, auxDestination);
+          auxTransitions.insert(auxTransition);
+        }
+        else if (nonTerminals_.checkIfBelongs(auxProduction[0])) { // If the symbol is non-terminal
+          auxInput = EPSILON;
+          auxDestination = auxProduction.substr(0,1);
+          
+          // Generate the new transition:
+          Transition auxTransition(auxInput, auxCurrent, auxDestination);
+          auxTransitions.insert(auxTransition);
+        }
+        auxCurrent.clear();
+        auxDestination.clear();
+        break;
+      }
+      case 2:  // If it contains two grammatical symbols.
+      {
+        bool isTerminal = auxAlphabet.checkIfBelongs(auxProduction[0]);
+        bool isNonTerminal = nonTerminals_.checkIfBelongs(auxProduction[1]);
+
+        if (isTerminal && isNonTerminal) {
+          auxInput = auxProduction[0];
+          auxDestination = auxProduction.substr(1,2);
+          
+          // Generate the new transition:
+          Transition auxTransition(auxInput, auxCurrent, auxDestination);
+          auxTransitions.insert(auxTransition);
+        }
+        auxCurrent.clear();
+        auxDestination.clear();
+        break;
+      }
+      default: // If it contains more than two grammatical symbols.
+      {
+        int j;
+       
+       for (j = 0; j < auxProduction.size(); ++j) {
+        
+        bool isTerminal = auxAlphabet.checkIfBelongs(auxProduction[j]);
+        bool isTerminalToo = auxAlphabet.checkIfBelongs(auxProduction[j + 1]);
+        bool isNonTerminal = nonTerminals_.checkIfBelongs(auxProduction[j]);
+        bool isLastNonTerminal = nonTerminals_.checkIfBelongs(auxProduction[j + 1]);
+          
+          if (j < auxProduction.size() - 1) {
+            if (isTerminal && isTerminalToo) { // If is a subsequence like aa...
+              auxInput = auxProduction[j];   // Input
+
+              std::string auxStateId = std::to_string(j); // New state Id
+              State auxState(auxStateId);  // Generate new state
+              auxStates.insert(auxState);
+              
+              auxDestination = auxStateId;  // Destination is the new state generated
+              
+              // Generate the new transition:
+              Transition auxTransition(auxInput, auxCurrent, auxDestination);
+              auxTransitions.insert(auxTransition);
+
+              auxCurrent = auxDestination;  // Now the current state is the Destination state
+            }
+            else if (isTerminal && isLastNonTerminal) { // If is the last non-Terminal
+              auxInput = auxProduction[j];   // New Input.
+              auxDestination = auxProduction.substr(j + 1,1); // New Destination.
+
+              // Generate the new transition:
+              Transition auxTransition(auxInput, auxCurrent, auxDestination);
+              auxTransitions.insert(auxTransition);
+
+              auxCurrent = auxDestination;  // Now the current state is the Destination state
+            }
+          }
+          else if (j == auxProduction.size() - 1) {
+            if (isTerminal) {
+              auxInput = auxProduction[j];
+              auxDestination = FINAL;
+
+              // Generate the new transition:
+              Transition auxTransition(auxInput, auxCurrent, auxDestination);
+              auxTransitions.insert(auxTransition);
+            }
+          }
+        }
+        auxCurrent.clear();
+        auxDestination.clear();
+        break;
+      }
+    }
   }
-  
+  Nfa nfa(startSymbol_, auxStates, auxFinalStates, auxAlphabet, auxTransitions);
+  return nfa;
 }
 

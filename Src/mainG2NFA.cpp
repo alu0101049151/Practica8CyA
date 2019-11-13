@@ -50,6 +50,8 @@ int main (int argc, char const* argv[]) {
     std::string outputFile = argv[2];
 
     Grammar gram(inputFile);
+    Nfa myNfa(gram.convertToNFA());
+    myNfa.printNfa(outputFile);
   }
  }
   return 0;

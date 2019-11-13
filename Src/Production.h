@@ -51,7 +51,6 @@ class Production {
 
     int operator< (const Production& production) const;
  
- private:
     /**
     * @return the non-terminal on the left of the production.
     */
@@ -63,6 +62,7 @@ class Production {
     std::string getRightPart () const;
 
     
+ private:
     /**
     * @brief Allows modify the non-terminal on the right of the 
     * production rule.
@@ -74,8 +74,6 @@ class Production {
     */
     void setRightPart (std::string& auxStr);
 
-
-  protected:
   private:
     char          leftPart_;  //!< Represents the non-terminal of production.
     std::string  rightPart_;  //!< Represents the grammatical symbols string on

@@ -41,7 +41,7 @@ std::set<char> Alphabet::getAlphabet() const {
 * @brief check if a symbol belongs tot the alphabet.
 * @return true if it belongs or false if not.
 */
-bool checkIfBelongs(char toCheck) {
+bool Alphabet::checkIfBelongs(char toCheck) {
   bool belong = false;
   for (auto i: alphabet_) {
     if (i == toCheck)
@@ -49,3 +49,9 @@ bool checkIfBelongs(char toCheck) {
   }
   return belong;
 }
+
+Alphabet& Alphabet::operator= (const Alphabet &alphabet) {
+  this->alphabet_ = alphabet.alphabet_;
+  return *this;
+}
+

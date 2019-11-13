@@ -20,7 +20,7 @@
 
 /*Nfa::Nfa(std::string& inputFile) {
   readAndBuildNfa(inputFile);
-}
+}*/
 
 
 Nfa::Nfa(const Nfa& nfa):
@@ -30,11 +30,11 @@ Nfa::Nfa(const Nfa& nfa):
   alphabet_(nfa.alphabet_),
   transitions_(nfa.transitions_),
   comments_(nfa.comments_) {}
-*/
 
-Nfa::Nfa(std::string startSate, std::set<State> states, std::set<std::string>
+
+Nfa::Nfa(std::string startState, std::set<State> states, std::set<std::string>
      finalStates, Alphabet alphabet, std::set<Transition> transitions):
-     startState(startState),
+     startState_(startState),
      states_(states),
      finalStates_(finalStates),
      alphabet_(alphabet),
@@ -210,4 +210,31 @@ void Nfa::readAndBuildNfa(std::string& nfaDefinition) {
   }
 }
 
+void Nfa::printNfa(std::string& outputFile) {
+  std::ofstream outputNfa;
+  outputNfa.open(outputFile);
 
+  outputNfa << alphabet_.getAlphabet().size() << NEWLINE;
+  for (auto i: alphabet_.getAlphabet()) {
+    outputNfa << i << NEWLINE;
+  }
+
+  outputNfa << states_.size() << NEWLINE;
+  for (auto i: states_) {
+    outputNfa << i.getStateId() << NEWLINE;
+  }
+
+  outputNfa << startState_ << NEWLINE;
+  
+  outputNfa << finalStates_.size() << NEWLINE;
+  for (auto i: finalStates_) {
+    outputNfa << i << NEWLINE;
+  }
+
+  outputNfa << transitions_.size() << NEWLINE;
+  for (auto i: transitions_) {
+    outputNfa << i.getCurrent() << " " << i.getInput() << " " << i.getDestination() << NEWLINE;
+  }
+  
+  outputNfa.close();
+}
