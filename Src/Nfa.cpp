@@ -18,7 +18,7 @@
 
 #include "Nfa.h"
 
-Nfa::Nfa(std::string& inputFile) {
+/*Nfa::Nfa(std::string& inputFile) {
   readAndBuildNfa(inputFile);
 }
 
@@ -30,6 +30,16 @@ Nfa::Nfa(const Nfa& nfa):
   alphabet_(nfa.alphabet_),
   transitions_(nfa.transitions_),
   comments_(nfa.comments_) {}
+*/
+
+Nfa::Nfa(std::string startSate, std::set<State> states, std::set<std::string>
+     finalStates, Alphabet alphabet, std::set<Transition> transitions):
+     startState(startState),
+     states_(states),
+     finalStates_(finalStates),
+     alphabet_(alphabet),
+     transitions_(transitions) {}
+
 
 Nfa::Nfa() {}
 

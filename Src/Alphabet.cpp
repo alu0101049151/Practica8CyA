@@ -37,3 +37,15 @@ std::set<char> Alphabet::getAlphabet() const {
   return alphabet_;
 }
 
+/**
+* @brief check if a symbol belongs tot the alphabet.
+* @return true if it belongs or false if not.
+*/
+bool checkIfBelongs(char toCheck) {
+  bool belong = false;
+  for (auto i: alphabet_) {
+    if (i == toCheck)
+      belong = true;
+  }
+  return belong;
+}

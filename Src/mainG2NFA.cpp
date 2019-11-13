@@ -16,7 +16,7 @@
  */
 
 
-#include "Nfa.h"
+#include "Grammar.h"
 
 int main (int argc, char const* argv[]) {
 
@@ -49,7 +49,7 @@ int main (int argc, char const* argv[]) {
   else {
     std::string outputFile = argv[2];
 
-    Nfa nfa(inputFile);
+    Grammar gram(inputFile);
   }
  }
   return 0;

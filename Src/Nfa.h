@@ -32,17 +32,20 @@
 
 const char EPSILON = '~';
 const char NEWLINE = '\n';
-const std::string COMMENT = "// ";
+const std::string COMMENT = "//";
 const std::string ENDOFCOMMENTS = "///";
 const std::string UNCHECKED = "@";
 
 class Nfa {  
   public:
-    Nfa(std::string& inputFile);
-    Nfa(const Nfa& nfa);
+    //Nfa(std::string& inputFile);
+    Nfa(std::string startSate, std::set<State> states, std::set<std::string>
+    finalStates, Alphabet alphabet, std::set<Transition> transitions);
+    //Nfa(const Nfa& nfa);
     Nfa();
     ~Nfa();
 
+  private:
     /**
     * @brief Returns the start state identifier.
     */
@@ -75,31 +78,17 @@ class Nfa {
     std::set<Transition> getTransitions() const;
 
     /**
-    * @brief Powerset Construction algorithm.
-    * @param it is the file where the definition of the resulting DFA will be
-    * saved when applying the algorithm.
-    */
-   // void powersetConstruction(std::string& outputFile);
-
-  private:
-    /**
     * @brief Prints the description of Nfa in the given output file. 
     */
     void printNfa(std::string& outputFile);
 
-  protected:
     /**
     * @brief Reads the input file and builds the Nfa.
     * @param inputFile is the name of the input file.
     */
     void readAndBuildNfa(std::string& nfaDefinition);
-
-    /**
-    * @brief Carries out the epsilon-closure of a set of states.
-    * @param toAnalize is the state to which the algorithm will be applied.
-    */
-   // std::set<State> epsilonClosure(std::set<State> T);
-
+  
+  protected:
   private:
     std::string startState_;             //!< Is the boot state.
     std::set<State> states_;             //!< Set with all the states of the Nfa.

@@ -23,9 +23,9 @@ Production::Production () {}
 
 /**
 * Parameter constructor that receives a non-terminal (leftPart)
-* and a set of grammatical symbol strings (rightPart).
+* and a string of grammatical symbols (rightPart).
 */
-Production::Production (char leftPart, std::set<std::string> rightPart): 
+Production::Production (char leftPart, std::string rightPart): 
   leftPart_(leftPart),
   rightPart_(rightPart) {}
 
@@ -46,10 +46,10 @@ char Production::getLeftPart () const {
 
 
 /**
-* Returns the set of productions that is on the right side of the production
-* rule.
+* Returns the string of grammatical symbols that is on the right side 
+* of the production rule.
 */
-std::set<std::string> Production::getRightPart () const {
+std::string Production::getRightPart () const {
   return rightPart_;
 }
 
@@ -62,12 +62,12 @@ void Production::setLeftPart (char leftPart) {
 }
 
 
+
 /**
-* Allows to insert a new production in the set of productions that 
-* is on the right of the production rule.
+* Allows to set the grammatical symbols string of the right side.
 */
-void Production::insertNewProduction (std::string& auxStr) {
-  rightPart_.insert(auxStr);
+void Production::setRightPart (std::string& auxStr) {
+  rightPart_ = auxStr;
 }
 
 

@@ -34,9 +34,10 @@ class Production {
     /**
     * @brief Parameter Constructor.
     * @param leftPart is the non-terminal on the left of the production.
-    * @param rightPart is the set of grammatical symbol string.
+    * @param rightPart is the string of grammatical symbols on the right side of
+    * the production..
     */
-    Production (char leftPart, std::set<std::string> rightPart);
+    Production (char leftPart, std::string rightPart);
     
     /**
     * @brief Copy constructor.
@@ -48,16 +49,18 @@ class Production {
     */
     ~Production ();
 
-  private:
+    int operator< (const Production& production) const;
+ 
+ private:
     /**
     * @return the non-terminal on the left of the production.
     */
     char getLeftPart () const;
 
     /**
-    * @return the set of grammatical symbols strings.
+    * @return a string of grammatical symbols.
     */
-    std::set<std::string> getRightPart () const;
+    std::string getRightPart () const;
 
     
     /**
@@ -67,17 +70,16 @@ class Production {
     void setLeftPart (char leftPart);
 
     /**
-    * @brief Allows to insert a new production in the right set of productions.
+    * @brief Allows to set the grammatical symbols string of the right side.
     */
-    void insertNewProduction (std::string& auxStr);
+    void setRightPart (std::string& auxStr);
 
-    int operator< (const Production& production) const;
 
   protected:
   private:
-    char                    leftPart_;  //!< Represents the non-terminal of production.
-    std::set<std::string>  rightPart_;  //!< Represents the set of productions
-                                        //!< of the production rule. 
+    char          leftPart_;  //!< Represents the non-terminal of production.
+    std::string  rightPart_;  //!< Represents the grammatical symbols string on
+                              //!< the right side of the production.
 };
 
 #endif //PRACTICE8_PRODUCTION_H

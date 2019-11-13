@@ -42,6 +42,12 @@ class Alphabet {
     */
     std::set<char> getAlphabet() const;
 
+    /**
+    * @brief check if a symbol belongs tot the alphabet.
+    * @return true if it belongs or false if not.
+    */
+    bool checkIfBelongs(char toCheck);
+
 	private:
 		std::set<char> alphabet_; //!< Character set representing the DFA's alphabet
 };
