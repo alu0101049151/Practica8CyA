@@ -37,13 +37,14 @@ class Grammar {
     * @return the nfa resulting from the conversion.
     */
     Nfa convertToNFA();
-  private:
-   //============COMPROBAR SI REALMENTE HACEN FALTA!!!!======
+
+		void printGrammar(std::string& outputFile);
+  
+	private:
     //std::set<char> getTerminals() const;
     //std::set<char> getNonTerminals() const;
     //std::string getstartSymbol() const;
     //std::set<Production> getProductions() const;
-   //========================================================
    
     /**
     * @brief Reads the grammar description of the input file and builds the grammar.
@@ -51,8 +52,8 @@ class Grammar {
     */
     void readAndBuildGrammar(std::string& grammarDefinition);
     
-  private:
-    Alphabet        terminals_;         //!< Represents the set of terminals of the grammar.
+    
+		Alphabet        terminals_;         //!< Represents the set of terminals of the grammar.
     Alphabet     nonTerminals_;         //!< Represents the set of non terminals of
                                         //!< the grammar.
     std::string    startSymbol_;        //!< Is the boot symbol.

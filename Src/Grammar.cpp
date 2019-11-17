@@ -70,7 +70,6 @@ void Grammar::readAndBuildGrammar(std::string& grammarDefinition) {
     for (int i = 0; i < temp; i++) {
       std::getline(inputFile, read);
       auxChar = read[0];
-      std::cout << "Auxchar:  " << auxChar << NEWLINE;
       terminals_.insertAlphabet(auxChar);
       read.clear();
     }
@@ -259,4 +258,29 @@ Nfa Grammar::convertToNFA() {
   Nfa nfa(startSymbol_, auxStates, auxFinalStates, auxAlphabet, auxTransitions);
   return nfa;
 }
+
+
+void Grammar::printGrammar(std::string& outputFile) {
+	std::ofstream outputGrammar;
+	outputGrammar.open(outputFile);
+
+	outputGrammar << terminals_.getAlphabet().size() << NEWLINE;
+	for (auto i: terminals_.getAlphabet()) {
+		outputGrammar << i << NEWLINE;
+	}
+
+	outputGrammar << nonTerminals_.getAlphabet().size() << NEWLINE;
+  for (auto i: nonTerminals_.getAlphabet()) {
+    outputGrammar << i << NEWLINE;
+  }
+
+	outputGrammar << startSymbol_ << NEWLINE;
+
+	outputGrammar << productions_.size() << NEWLINE;
+	for (auto i: productions_) {
+		outputGrammar << i.getLeftPart() << " " <<  ARROW << " " << i.getRightPart() << NEWLINE;
+	}
+}
+
+
 

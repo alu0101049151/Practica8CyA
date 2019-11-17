@@ -20,40 +20,51 @@
 
 int main (int argc, char const* argv[]) {
 
-  if (argv[1] == NULL) {
-    std::cout << "Usage: ./NFA2DFA input.nfa output.dfa\n";
-    std::cout << "Try 'NFA2DFA --help' for more information\n";
+  if (argc != 3 && argc != 4) {
+    std::cout << "Usage: ./G2NFA input.gra output.nfa\n";
+    std::cout << "Try 'G2NFA --help' for more information\n";
   } 
-  else {
+	if (argc == 2) {
     std::string inputFile = argv[1];
 
     if (inputFile  == "--help") {
       std::cout << "NAME\n";
-      std::cout << "      NFA2DFA\n";
+      std::cout << "      G2NFA\n";
       std::cout << "\n";
       std::cout << "USAGE:\n";
-      std::cout << "      NFA2DFA [input_file.nfa] [output_file.dfa]\n";
+      std::cout << "      G2NFA [input_file.gra] [output_file.nfa]\n";
       std::cout << "\n";
       std::cout << "DESCRIPTION\n";
-      std::cout << "      Reads a \".nfa\" input file with the definition of a\n";
-      std::cout << "      Nondeterministic Finite Automaton and generates a\n";
-      std::cout << "      \".dfa\" output file with the DFA specification\n";
-      std::cout << "      resulting from applying to the NFA the Powerset\n"; 
-      std::cout << "      Construction.";
+      std::cout << "      Reads a \".gra\" input file with the definition of a\n";
+      std::cout << "      Regular Grammar and generates a \".nfa\" output file \n";
+      std::cout << "      with the NFA specification resulting from applying to\n";
+      std::cout << "      the Grammar the conversion algorithm\n"; 
       std::cout << "\n";
       std::cout << "AUTHOR\n";
       std::cout << "      Written by Basilio Gómez Navarro as practice of the\n";
       std::cout << "      subject Computability and Algorithm. November of 2019.\n";
       std::cout << "\n\n";
-    }
-  else {
+		}
+	}
+  else if (argc == 3) {
+    std::string inputFile = argv[1];
     std::string outputFile = argv[2];
 
     Grammar gram(inputFile);
     Nfa myNfa(gram.convertToNFA());
     myNfa.printNfa(outputFile);
   }
- }
+	else if (argc == 4) {
+    std::string inputFile = argv[1];
+    std::string outputFile = argv[2];
+		std::string gramOutputFile = argv[3];
+
+    Grammar gram(inputFile);
+    Nfa myNfa(gram.convertToNFA());
+    myNfa.printNfa(outputFile);
+
+		gram.printGrammar(gramOutputFile);
+	}
   return 0;
 }
 

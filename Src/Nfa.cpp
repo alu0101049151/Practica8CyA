@@ -1,19 +1,20 @@
 /**
  * @Author Basilio Gómez Navarro
- * @date 3/11/2019
+ * @date 10/11/2019
  * University of La Laguna
  * Higher School of Engineering and Technology
  * Computer Ingineering Degree
  * Grade: 2nd
- * Practice 7 - The Powerset Construction
+ * Practice 8 - Regular Grammars and Finite Automatons.
  * Email: alu0101049151@ull.edu.es
- * Nfa.cpp file: Nfa class. It represents a Nondeterministic Finite Automaton.
- *               This file contains the class implementation. 
+ * Grammar.cpp file: Grammar class. It represents a Regular Linear Grammar on the
+ *                 right.
+ *                 This file contains the class Implementation.
  * References:
  *                Practice statement:
- *                https://campusvirtual.ull.es/1920/pluginfile.php/181073/mod_assign/introattachment/0/CYA_1920_Practica_7.pdf?forcedownload=1
+ *                https://campusvirtual.ull.es/1920/pluginfile.php/184519/mod_assign/introattachment/0/CYA_1920_Practica_8.pdf?forcedownload=1
  * Revision history:
- *                3/11/2019 - Creation (first version) of the code
+ *                10/11/2019 - Creation (first version) of the code
  */
 
 #include "Nfa.h"
@@ -139,14 +140,12 @@ void Nfa::readAndBuildNfa(std::string& nfaDefinition) {
 
      std::getline(inputFile, readed);  //Read the ~ (epsilon) symbol.
      auxChar = readed[0];
-     std::cout << "Auxchar:  " << auxChar << NEWLINE;
      alphabet_.insertAlphabet(auxChar);
      readed.clear();
 
      for (int i = 0; i < temp; i++) {
        std::getline(inputFile, readed);
        auxChar = readed[0];
-       std::cout << "Auxchar:  " << auxChar << NEWLINE;
        alphabet_.insertAlphabet(auxChar);
        readed.clear();
      }

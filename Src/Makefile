@@ -7,4 +7,4 @@ all: ${OBJS}
 	$(CC) $(CXXFLAGS) -o G2NFA ${OBJS}
 
 clean:
-	rm -rf *.o *.txt *.gv *.nfa *.gram G2NFA
+	rm -rf *.o *.txt *.gv *.nfa *.gra G2NFA
